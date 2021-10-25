@@ -33,7 +33,6 @@ const typeDefs = gql`
   }
 
   input ItemCreateInput {
-    userId: Int!
     closet: String!
     season: String!
     apparelType: String!
@@ -50,7 +49,7 @@ const typeDefs = gql`
   }
   type Mutation {
     registerUser(data: UserCreateInput!): User!
-    createItem(data: ItemCreateInput!): Item!
+    createItem(data: ItemCreateInput!, userEmail: String!): Item!
   }
   enum ClosetType {
     MINE

@@ -16,13 +16,15 @@ const Mutation = {
     console.log(parent, args);
     return prisma.item.create({
       data: {
-        user: args.data.userId,
         closet: args.data.closet,
         season: args.data.season,
         apparelType: args.data.apparelType,
         shortDesc: args.data.shortDesc,
         longDesc: args.data.longDesc,
         size: args.data.size,
+        user: args.userEmail && {
+          connect: { email: args.userEmail },
+        },
       },
     });
   },

@@ -19,6 +19,13 @@ const Item = {
   shortDesc: (parent) => parent.shortDesc,
   longDesc: (parent) => parent.longDesc,
   size: (parent) => parent.size,
+  user: (parent, args) => {
+    return prisma.item
+      .findUnique({
+        where: { id: parent.id },
+      })
+      .user();
+  },
 };
 
 const resolvers = {

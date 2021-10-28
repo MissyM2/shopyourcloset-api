@@ -1,16 +1,6 @@
 const { gql } = require('apollo-server-express');
 
-const typeDefs = gql`
-  type User {
-    id: ID!
-    email: String!
-    firstName: String!
-    lastName: String!
-    password: String!
-    updatedAt: String
-    createdAt: String
-  }
-
+export default gql`
   type Item {
     id: ID!
     user: User!
@@ -25,13 +15,6 @@ const typeDefs = gql`
     createdAt: String
   }
 
-  input UserCreateInput {
-    email: String!
-    firstName: String!
-    lastName: String!
-    password: String!
-  }
-
   input ItemCreateInput {
     closet: String!
     season: String!
@@ -41,14 +24,11 @@ const typeDefs = gql`
     size: String!
   }
 
-  type Query {
-    users: [User!]
-    user(id: ID!): User
+  extend type Query {
     items: [Item!]!
     item(id: ID!): Item
   }
-  type Mutation {
-    registerUser(data: UserCreateInput!): User!
+  extend type Mutation {
     createItem(data: ItemCreateInput!, userEmail: String!): Item!
   }
   enum ClosetType {
@@ -84,7 +64,3 @@ const typeDefs = gql`
     PATTERN
   }
 `;
-
-module.exports = {
-  typeDefs,
-};

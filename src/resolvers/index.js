@@ -1,40 +1,10 @@
-const { prisma } = require('../prisma/client');
-const { Query } = require('./query.js');
-const { Mutation } = require('./mutation.js');
+import { GraphQLDateTime } from 'graphql-iso-date';
 
-const User = {
-  id: (parent, args, context, info) => parent.id,
-  email: (parent) => parent.email,
-  firstName: (parent) => parent.firstName,
-  lastName: (parent) => parent.lastName,
-  password: (parent) => parent.password,
+import userResolvers from './user';
+import itemResolvers from './item';
+
+const customScalarResolver = {
+  Date: GraphQLDateTime,
 };
 
-const Item = {
-  id: (parent) => parent.id,
-  user: (parent) => parent.userId,
-  closet: (parent) => parent.closet,
-  season: (parent) => parent.season,
-  apparelType: (parent) => parent.apparelType,
-  shortDesc: (parent) => parent.shortDesc,
-  longDesc: (parent) => parent.longDesc,
-  size: (parent) => parent.size,
-  user: (parent, args) => {
-    return prisma.item
-      .findUnique({
-        where: { id: parent.id },
-      })
-      .user();
-  },
-};
-
-const resolvers = {
-  User,
-  Item,
-  Query,
-  Mutation,
-};
-
-module.exports = {
-  resolvers,
-};
+export default [customScalarResolver, userResolvers, itemResolvers];

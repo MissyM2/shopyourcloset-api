@@ -4,12 +4,17 @@ import { ApolloServer } from 'apollo-server-express';
 import schema from './schema';
 import resolvers from './resolvers';
 
+import LaunchAPI from './datasources/launch';
+
 const startServer = async () => {
   const app = express();
   const httpServer = createServer(app);
   const apolloServer = new ApolloServer({
     typeDefs: schema,
     resolvers,
+    dataSources: () => ({
+      launchAPI: new LaunchAPI(),
+    }),
     introspection: true,
   });
 

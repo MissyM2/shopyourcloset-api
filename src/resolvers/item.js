@@ -15,7 +15,6 @@ export default {
 
   Mutation: {
     createItem: (parent, args) => {
-      console.log(parent, args);
       return prisma.item.create({
         data: {
           closet: args.data.closet,

@@ -5,6 +5,7 @@ import schema from './schema';
 import resolvers from './resolvers';
 
 import LaunchAPI from './datasources/launch';
+import WeatherRockvilleAPI from './datasources/weatherRockville';
 
 const startServer = async () => {
   const app = express();
@@ -14,6 +15,7 @@ const startServer = async () => {
     resolvers,
     dataSources: () => ({
       launchAPI: new LaunchAPI(),
+      weatherAPI: new WeatherRockvilleAPI(),
     }),
     introspection: true,
   });

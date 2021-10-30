@@ -9,10 +9,7 @@ async function main() {
   }
   await prisma.item.deleteMany();
   await prisma.user.deleteMany();
-  console.log('items should have been deleted');
   for (let i = 0; i < 5; i++) {
-    console.log('adding a new row');
-
     await prisma.user.create({
       data: {
         email: `${faker.internet.email()}`,

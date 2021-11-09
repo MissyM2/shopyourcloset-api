@@ -30,6 +30,17 @@ export default {
         },
       });
     },
+    updateUser: (parent, args) => {
+      console.log('what are args', args);
+      // id = +args.id;
+      const user = prisma.user.update({
+        where: { id: +args.id },
+        data: {
+          ...args.data,
+        },
+      });
+      return user;
+    },
   },
 
   User: {

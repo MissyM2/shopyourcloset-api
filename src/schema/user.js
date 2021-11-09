@@ -12,11 +12,18 @@ export default gql`
     createdAt: String
   }
 
-  input UserCreateInput {
+  input UserInput {
     email: String!
     firstName: String!
     lastName: String!
     password: String!
+  }
+
+  input UserInputUpdate {
+    email: String
+    firstName: String
+    lastName: String
+    password: String
   }
 
   extend type Query {
@@ -25,6 +32,7 @@ export default gql`
   }
 
   extend type Mutation {
-    registerUser(data: UserCreateInput!): User!
+    registerUser(data: UserInput!): User
+    updateUser(data: UserInputUpdate, id: ID!): User!
   }
 `;

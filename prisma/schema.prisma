@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              Int             @id @default(autoincrement())
+  email           String?         @unique @db.VarChar(50)
+  firstName       String?         @db.Char(30)
+  lastName        String?         @db.Char(30)
+  password        String
+  isAdmin         Boolean         @default(value: false)   
+  resetPasswordToken  String      @default(value: "")           
+  items           Item[]
+  createdAt       DateTime?        @default(now())
+  updatedAt       DateTime?        @updatedAt
+  @@map(name: "user")
+}
+
+
+model Item {
+  id              Int                 @id @default(autoincrement())
+  user            User?               @relation(fields: [userId], references: [id])
+  userId          Int?
+  closet          ClosetType          @default(MINE)
+  season          SeasonType          @default(WINTER)
+  color           ColorType          @default(BLACK)
+  apparelType     ApparelType         @default(TOP)
+  shortDesc       String              @db.VarChar(100)
+  longDesc        String              @db.VarChar(100)
+  size            String              @db.VarChar(10)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  @@map(name: "item")
+}
+
+enum ClosetType {
+  MINE
+  SHARE
+  DONATE
+  IDEAL
+}
+
+enum SeasonType {
+  WINTER
+  SPRING
+  SUMMER
+  FALL
+}
+
+enum ApparelType {
+  TOP
+  BOTTOM
+  OUTERWEAR
+  SHOES
+  DRESS
+  ACCESSORY
+  NIGHTWEAR
+  SWIMSUIT
+}
+
+enum ColorType {
+  BLACK
+  BROWN
+  WHITE
+  CREAM
+  PATTERN
+}

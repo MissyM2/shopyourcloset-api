@@ -1,14 +1,19 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "sourceMap": true,
     "module": "commonjs",
-    "lib": ["es6"],
-    "allowJs": true,
-    "outDir": "build",
-    "rootDir": "src",
-    "strict": true,
+    "target": "ES2018",
+    "outDir": "dist",
+    "lib": ["esnext", "dom"],
+    // "strict": true,
     "noImplicitAny": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
     "esModuleInterop": true,
-    "resolveJsonModule": true
-  }
+    "skipLibCheck": true,
+    "noUnusedParameters": false
+  },
+  "include": ["./src"]
 }

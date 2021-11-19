@@ -1,2 +1,16 @@
+# env vars
+.env*
+!.env.example
+
+# nexus/prisma
+*.db
+*.db-journal
+dist/
+src/generated
+
+# misc
 node_modules
-.env
+coverage/
+.eslintcache
+.DS_Store
+query-engine*

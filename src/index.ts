@@ -1,35 +1,7 @@
-import { createServer } from 'http';
-import express from 'express';
-import { ApolloServer } from 'apollo-server-express';
-import schema from './schema';
-import resolvers from './resolvers';
+import { server } from './server'
 
-import LaunchAPI from './datasources/launch';
-import WeatherRockvilleAPI from './datasources/weatherRockville';
+const PORT = process.env.PORT || 4002
 
-const startServer = async () => {
-  const app = express();
-  const httpServer = createServer(app);
-  const apolloServer = new ApolloServer({
-    typeDefs: schema,
-    resolvers,
-    dataSources: () => ({
-      launchAPI: new LaunchAPI(),
-      weatherAPI: new WeatherRockvilleAPI(),
-    }),
-    introspection: true,
-  });
-
-  await apolloServer.start();
-
-  apolloServer.applyMiddleware({
-    app,
-    path: '/api',
-  });
-
-  httpServer.listen({ port: process.env.PORT || 4000 }, () =>
-    console.log(`Server listening on localhost:4000${apolloServer.graphqlPath}`)
-  );
-};
-
-startServer();
+server.listen({ port: PORT }).then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`)
+})
